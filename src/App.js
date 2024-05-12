@@ -1,5 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState} from 'react';
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAnglesDown, faAnglesUp, faPause, faPlay, faRefresh } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
 const [breakLength, setBreakLength] = useState(5);
@@ -145,22 +147,22 @@ const handleReset = () => {
   return (
     <div className="App">
       <div className='wrapper'>
-        <h2>25 + 5 clock</h2>
+        <h2 id="app-title">25 + 5 clock</h2>
         <div className='break-session-length'>
-          <div>
+          <div id="break-counter" className="counter">
             <h3 id="break-label">Break Length</h3>
-            <div>
-              <button disabled={play} onClick={() => handleSessionAndBreak(breakLength,"BREAK",true)} id="break-increment">Increase</button>
-              <strong id="break-length">{breakLength}</strong>
-              <button disabled={play} onClick={() => handleSessionAndBreak(breakLength,"BREAK",false)} id="break-decrement">Decrease</button>
+            <div className='button-timer'>
+              <button className="button-group" disabled={play} onClick={() => handleSessionAndBreak(breakLength,"BREAK",true)} id="break-increment"><FontAwesomeIcon icon={faAnglesUp}/></button>
+              <strong className="length-display" id="break-length">{breakLength}</strong>
+              <button className="button-group" disabled={play} onClick={() => handleSessionAndBreak(breakLength,"BREAK",false)} id="break-decrement"><FontAwesomeIcon icon={faAnglesDown}/></button>
             </div>
           </div>
-          <div>
+          <div id="session-counter" className="counter">
             <h3 id="session-label">Session Length</h3>
-            <div>
-              <button disabled={play} onClick={() => handleSessionAndBreak(sessionLength,"SESSION",true)} id="session-increment">Increase</button>
-              <strong id="session-length">{sessionLength}</strong>
-              <button disabled={play} onClick={() => handleSessionAndBreak(sessionLength,"SESSION",false)} id="session-decrement">Decrease</button>
+            <div className='button-timer'>
+              <button className="button-group" disabled={play} onClick={() => handleSessionAndBreak(sessionLength,"SESSION",true)} id="session-increment"><FontAwesomeIcon icon={faAnglesUp}/></button>
+              <strong className="length-display" id="session-length">{sessionLength}</strong>
+              <button className="button-group" disabled={play} onClick={() => handleSessionAndBreak(sessionLength,"SESSION",false)} id="session-decrement"><FontAwesomeIcon icon={faAnglesDown}/></button>
             </div>
           </div>
         </div>
@@ -171,8 +173,11 @@ const handleReset = () => {
           <h2 id="timer-label">{timingType === "SESSION" ? "Session" : "Break"}</h2>
           <h3 id="time-left">{timeFormatter()}</h3>
         </div>
-        <button onClick={handlePlay} id="start_stop">Start/Stop</button>
-        <button onClick={handleReset} id="reset">Reset</button>
+        <div id="timer-buttons-group">
+          <button className="button-group" onClick={handlePlay} id="start_stop"><FontAwesomeIcon icon={play ? faPause : faPlay}/></button>
+          <button className="button-group" onClick={handleReset} id="reset"><FontAwesomeIcon icon={faRefresh}/></button>
+        </div>
+        
       </div>
       <audio id="beep" preload='auto' src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav" />
       
